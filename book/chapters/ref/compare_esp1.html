@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>ดูข้อมูลเปรียบเทียบ - Esp32 IoT Course MUICT</title>
+
+
+    <!-- Custom HTML head -->
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="../../favicon.svg">
+    <link rel="shortcut icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/chrome.css">
+    <link rel="stylesheet" href="../../css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../../fonts/fonts.css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="../../highlight.css">
+    <link rel="stylesheet" href="../../tomorrow-night.css">
+    <link rel="stylesheet" href="../../ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    <link rel="stylesheet" href="../.././mdbook-admonish.css">
+
+</head>
+
+<body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../chapters/chapter_1.html"><strong aria-hidden="true">1.</strong> เตรียมเครื่องคอม</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../chapters/ref/compare_esp1.html" class="active"><strong aria-hidden="true">1.1.</strong> ดูข้อมูลเปรียบเทียบ</a></li><li class="chapter-item expanded "><a href="../../chapters/ref/pinout.html"><strong aria-hidden="true">1.2.</strong> ESP32 Pinout</a></li></ol></li><li class="chapter-item expanded "><a href="../../chapters/iot_homelab.html"><strong aria-hidden="true">2.</strong> สร้าง IoT Home lab</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor"
+                            title="Toggle Table of Contents" aria-label="Toggle Table of Contents"
+                            aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Esp32 IoT Course MUICT</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="table-wrapper"><table><thead><tr><th></th><th>ESP8266</th><th>ESP32</th><th>ESP32-S2</th><th>ESP32-S3</th><th>ESP32-C3</th><th>ESP32-C6</th></tr></thead><tbody>
+<tr><td>Announcement Date</td><td>2014, สิงหาคม</td><td>2016, กันยายน</td><td>2019, กันยายน</td><td>2020, ธันวาคม</td><td>2020, พฤศจิกายน</td><td>2021, เมษายน</td></tr>
+<tr><td>Main processor</td><td>Tensilica L106 32 บิต (สูงสุด 160MHz)</td><td>Tensilica Xtensa 32 บิต LX6 (สูงสุด 240MHz) (ตัวเลือกคู่)</td><td>Tensilica Xtensa 32 บิต LX7 (สูงสุด 240MHz)</td><td>Tensilica Xtensa 32 บิต LX7 คู่ (สูงสุด 240MHz)</td><td>RISC-V 32 บิต (สูงสุด 160MHz)</td><td>RISC-V 32 บิต (สูงสุด 160MHz)</td></tr>
+<tr><td>SRAM</td><td>160KB</td><td>520KB</td><td>320KB</td><td>512KB</td><td>400KB</td><td>400KB</td></tr>
+<tr><td>ROM</td><td>0</td><td>448KB</td><td>128KB</td><td>384KB</td><td>384KB</td><td>384KB</td></tr>
+<tr><td>JTAG</td><td>X</td><td>✓</td><td>✓</td><td>?</td><td>✓</td><td>✓</td></tr>
+<tr><td>Cache</td><td>คำสั่ง 32 KB</td><td>64KB</td><td>8/16KB (configurable)</td><td>?</td><td>16KB</td><td>?</td></tr>
+<tr><td>WiFi</td><td>Wi-Fi 4 (เฉพาะสูงสุด 72.2Mbps)</td><td>Wi-Fi 4</td><td>Wi-Fi 4</td><td>Wi-Fi 4</td><td>Wi-Fi 4</td><td>Wi-Fi 6</td></tr>
+<tr><td>Bluetooth</td><td>X</td><td>BLE 4.2 (อัปเกรดเป็น 5.0, มีข้อจำกัด)</td><td>X</td><td>BLE 5.0</td><td>BLE 5.0</td><td>BLE 5.0</td></tr>
+<tr><td>Ethernet</td><td>X</td><td>✓</td><td>X</td><td>?</td><td>X</td><td>?</td></tr>
+<tr><td>RTC memory</td><td>768B</td><td>16KB</td><td>16KB</td><td>16KB</td><td>8KB</td><td>?</td></tr>
+<tr><td>PMU</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>✓</td><td>?</td></tr>
+<tr><td>ULP coprocessor</td><td>X</td><td>✓</td><td>ULP-RISC-V</td><td>?</td><td>X</td><td>?</td></tr>
+<tr><td>Cryptographic Accelerator</td><td>X</td><td>SHA, RSA, AES, RNG</td><td>SHA, RSA, AES, RNG, HMAC, ลายเซ็นดิจิตอล</td><td>SHA, RSA, AES, RNG, HMAC, ลายเซ็นดิจิตอล</td><td>SHA, RSA, AES, RNG, HMAC, ลายเซ็นดิจิตอล</td><td>SHA, RSA, AES, RNG, HMAC, ลายเซ็นดิจิตอล</td></tr>
+<tr><td>Secure boot</td><td>X</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>Flash encryption</td><td>X</td><td>✓</td><td>XTS-AES-128/256</td><td>✓</td><td>XTS-AES-128</td><td>XTS-AES-128</td></tr>
+<tr><td>SPI</td><td>2</td><td>4</td><td>4</td><td>?</td><td>3</td><td>?</td></tr>
+<tr><td>I2C</td><td>1</td><td>2</td><td>2</td><td>?</td><td>1</td><td>?</td></tr>
+<tr><td>I2S</td><td>1</td><td>2</td><td>1</td><td>?</td><td>1</td><td>?</td></tr>
+<tr><td>UART</td><td>2 (เพียง TX เท่านั้น)</td><td>3</td><td>2</td><td>?</td><td>2</td><td>?</td></tr>
+<tr><td>SDIO Host</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td></tr>
+<tr><td>SDIO Slave</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>GPIO</td><td>17</td><td>34</td><td>43</td><td>44</td><td>22</td><td>22</td></tr>
+<tr><td>LED PWM</td><td>5</td><td>16</td><td>8</td><td>?</td><td>6</td><td>?</td></tr>
+<tr><td>MCPWM</td><td>0</td><td>6</td><td>0</td><td>2</td><td>0</td><td>0</td></tr>
+<tr><td>Pulse counter</td><td>0</td><td>8</td><td>4</td><td>?</td><td>0</td><td>X</td></tr>
+<tr><td>GDMA*</td><td>0</td><td>0</td><td>0</td><td>?</td><td>6</td><td>?</td></tr>
+<tr><td>USB</td><td>X</td><td>X</td><td>USB OTG 1.1</td><td>?</td><td>ซีเรียล/JTAG</td><td>?</td></tr>
+<tr><td>TWAI**</td><td>0</td><td>1</td><td>1</td><td>?</td><td>1</td><td>?</td></tr>
+<tr><td>ADC</td><td>1x 10-bit SAR</td><td>2x 12-bit SAR, สูงสุด 18 ช่อง</td><td>2x 13-bit SAR, สูงสุด 20 ช่อง</td><td>?</td><td>2x 12-bit SAR, สูงสุด 6 ช่อง</td><td>?</td></tr>
+<tr><td>DAC</td><td>X</td><td>2x 8-bit</td><td>2x 8-bit</td><td>?</td><td>X</td><td>X</td></tr>
+<tr><td>RMT</td><td>การส่ง 1x + การรับ 1x</td><td>การส่ง/การรับ 8x</td><td>การส่ง/การรับ 4x</td><td>?</td><td>การส่ง 2x + การรับ 2x</td><td>?</td></tr>
+<tr><td>Timer</td><td>2x 23-bit***</td><td>4x 64-bit</td><td>4x 64-bit</td><td>?</td><td>2x 54-bit + 1x 52-bit</td><td>?</td></tr>
+<tr><td>传感器温度</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>✓</td><td>?</td></tr>
+<tr><td>Hall Sensor</td><td>X</td><td>✓</td><td>X</td><td>?</td><td>X</td><td>?</td></tr>
+<tr><td>Touch Sensor</td><td>0</td><td>10</td><td>14</td><td>?</td><td>X</td><td>?</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <a rel="prev" href="../../chapters/chapter_1.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+
+                        <a rel="next prefetch" href="../../chapters/ref/pinout.html" class="mobile-nav-chapters next"
+                            title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <a rel="prev" href="../../chapters/chapter_1.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+                <a rel="next prefetch" href="../../chapters/ref/pinout.html" class="nav-chapters next" title="Next chapter"
+                    aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../js/highlightjs-line-numbers.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $('code.hljs').each(function (i, block) {
+                    hljs.lineNumbersBlock(block);
+                });
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>สร้าง IoT Home lab - Esp32 IoT Course MUICT</title>
+
+
+    <!-- Custom HTML head -->
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="../favicon.svg">
+    <link rel="shortcut icon" href="../favicon.png">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/chrome.css">
+    <link rel="stylesheet" href="../css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../fonts/fonts.css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="../highlight.css">
+    <link rel="stylesheet" href="../tomorrow-night.css">
+    <link rel="stylesheet" href="../ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    <link rel="stylesheet" href=".././mdbook-admonish.css">
+
+</head>
+
+<body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../chapters/chapter_1.html"><strong aria-hidden="true">1.</strong> เตรียมเครื่องคอม</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapters/ref/compare_esp1.html"><strong aria-hidden="true">1.1.</strong> ดูข้อมูลเปรียบเทียบ</a></li><li class="chapter-item expanded "><a href="../chapters/ref/pinout.html"><strong aria-hidden="true">1.2.</strong> ESP32 Pinout</a></li></ol></li><li class="chapter-item expanded "><a href="../chapters/iot_homelab.html" class="active"><strong aria-hidden="true">2.</strong> สร้าง IoT Home lab</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor"
+                            title="Toggle Table of Contents" aria-label="Toggle Table of Contents"
+                            aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Esp32 IoT Course MUICT</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="สราง-iot-home-lab"><a class="header" href="#สราง-iot-home-lab">สร้าง IoT Home lab</a></h1>
+<p>การสร้าง IoT home lab เพื่อใช้สำหรับการเรียนรู้และการพัฒนา มีวัดถุประสงค์เพื่อให้การเรียนรู้มีประสิทธิภาพ รวดเร็วไม่เสียเวลาสำหรับการสร้าง Environment โดยการสร้าง Home Lab ในบทนี้จะเป็นการสร้างบน Windows 10/11 มีขั้นตอนดังต่อไปนี้</p>
+<ol>
+<li>ติดตั้ง Virtaulbox version ล่าสุด</li>
+<li>ติดตั้ง Vagrant</li>
+<li>ปิด Service HyperV บน Windows</li>
+<li>สร้าง Vagrantfile เพื่อสร้าง lab</li>
+</ol>
+<h2 id="1-ติดตัง-virtualbox"><a class="header" href="#1-ติดตัง-virtualbox">1. ติดตั้ง Virtualbox</a></h2>
+<p>ไปยัง <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a> เพื่อทำการ Download โปรแกรม virtualbox และ Extension Pack
+<img src="../assets/images/virtualbox_download.png" alt="virtualbox_download" /></p>
+<h2 id="2-ติดตัง-vagrant"><a class="header" href="#2-ติดตัง-vagrant">2. ติดตั้ง Vagrant</a></h2>
+<p>Vagrant คืออะไร</p>
+<p><img src="../assets/images/what-is-vagrant.png" alt="vagrant " /></p>
+<p>ไปยัง <a href="https://www.vagrantup.com/">https://www.vagrantup.com/</a> ให้ Download Community Version
+<img src="../assets/images/vagrant_download.png" alt="vagrant_download" /></p>
+<h2 id="ตังคา-path"><a class="header" href="#ตังคา-path">ตั้งค่า Path</a></h2>
+<p>เมื่อตั้งตั้งโปรแกรมในข้อ 1,2 เรียบร้อยแล้วให้ทำการเพิ่ม path  ของ โปรแกรมเพื่อให้สามารถใช้งานผ่านทาง Command Line ได้</p>
+<ul>
+<li>เพิ่ม Path ของ virtualbox ไปยัง Environment Variable (C:\Program Files\Oracle\VirtualBox)</li>
+<li>เพิ่ม Path ของ vagrant ไปยัง Environment Variable  (C:\Program Files\Vagrant\bin)</li>
+</ul>
+<p><img src="../assets/images/set_environment.png" alt="set_environment" />
+กดเลือกบรรทัด path และกดปุ่ม New เพื่อเพิ่มเติมค่า
+<img src="../assets/images/set_environment2.png" alt="set_environment2" /></p>
+<h2 id="ปิด-hyperv-service-บน-windows"><a class="header" href="#ปิด-hyperv-service-บน-windows">ปิด hyperv service บน Windows</a></h2>
+<p>เปิด Powershell ในโหมด Administrator</p>
+<pre><code class="language-sh">&gt; Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+</code></pre>
+<p><img src="../assets/images/disable_hyperV.png" alt="disble_hyperV" />
+และ</p>
+<pre><code class="language-sh">&gt; bcdedit /set hypervisorlaunchtype off
+</code></pre>
+<p><img src="../assets/images/disable_hyperV2.png" alt="disble_hyperV2" /></p>
+<h2 id="ติดตัง-home-lab"><a class="header" href="#ติดตัง-home-lab">ติดตั้ง Home lab</a></h2>
+<p>เรียนรู้พื้นฐานการสร้าง Home Lab ด้วยสร้าง Virtual Host บน virtualbox ด้วยการใช้งานคำสั่ง vagrant</p>
+<ul>
+<li>สร้าง Folder สำหรับติดตั้ง Homelab เช่น thingsboard</li>
+<li>ภายใน folder thingsboard ประกอบด้วย File 2 File ดังนี้
+<ul>
+<li>Vagrantfile  ระบุคำสั่งสำหรับการสร้าง VM (เรียกว่า Creation)</li>
+<li>bootstrap.sh  ระบุคำสั่งที่ทำงานภายใน VM (เรียกการ Provision)</li>
+</ul>
+</li>
+</ul>
+<h3 id="ตัวอยาง"><a class="header" href="#ตัวอยาง">ตัวอย่าง</a></h3>
+<p>สร้าง VM ด้วย Debian 12 และหลังจากสร้าง VM ก็จะทำการติดตั้ง</p>
+<ul>
+<li>สร้าง Folder homelab ด้วย คำสั่ง mkdir</li>
+</ul>
+<pre><code class="language-sh">&gt;mkdir homelab
+</code></pre>
+<ul>
+<li>หลังจากนั้น ให้ Download ไฟล์ <a href="../assets/zip/homelab1.zip">homelab1.zip</a> ไปไว้ folder homelab และทำการแตก zip ให้เรียบร้อย</li>
+<li>และใช้ Terminal เปิดไปยัง folder homelab1
+<img src="../assets/images/openin_terminal.png" alt="openin_terminal" /></li>
+<li>run คำสั่ง vagrant ดังนี้</li>
+</ul>
+<pre><code class="language-sh">vagrant up --provision=virtualbox --provision
+</code></pre>
+<p>ตัวอย่างหน้าจอ
+<img src="../assets/images/vagrant_up.png" alt="vagrantup" /></p>
+<h3 id="ขันตอนการทำงานเบืองหลัง"><a class="header" href="#ขันตอนการทำงานเบืองหลัง">ขั้นตอนการทำงานเบื้องหลัง</a></h3>
+<p><img src="../assets/images/vagrant_step.png" alt="vagrantstep" /></p>
+<div id="admonition-example" class="admonition admonish-example">
+<div class="admonition-title">
+<p>Example</p>
+<p><a class="admonition-anchor-link" href="#admonition-example"></a></p>
+</div>
+<div>
+<p>Code Review</p>
+</div>
+</div>
+<p>File <strong>Vagrantfile</strong> เป็นภาษา ruby ทำหน้าที่เป็น Template เพื่อส่งต่อให้แก่ คำสั่ง Vagrant นำไปสร้าง VM บน Virtualbox</p>
+<pre><code class="language-ruby">Vagrant.configure("2") do |config|
+  config.vm.box = "generic/debian12"
+  config.vm.network "private_network", ip: "192.168.56.10"
+  config.vm.network "forwarded_port", guest:2375 , host: 2375
+  config.vm.network "public_network", bridge: "Intel(R) Wireless-AC 9560 160MHz", ip: "192.168.1.10"
+  config.vm.synced_folder ".", "/vagrant", type: "rsync"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize [
+      "modifyvm", :id,
+      "--nested-hw-virt", "on",
+      "--memory", "2048",
+      "--paravirtprovider", "hyperv", 
+      "--cpus", "2"
+    ]
+  end
+
+  #config.vm.provision "shell" , path: "bootstrap.sh"
+end
+</code></pre>
+<p>File <strong>bootstrap.sh</strong> เป็น Bash script ไว้สำหรับ Run ใน Debian สำหรับการติดตั้ง Docker , Docker compose</p>
+<pre><code class="language-sh">#!/bin/bash
+
+  echo "[ ] Start vagrant provisioning"
+
+  # Add Docker's official GPG key:
+  sudo apt update &amp;&amp; sudo apt upgrade -y &amp;&amp; sudo apt autoremove –y
+  sudo apt --fix-broken install -y
+  sudo apt-get install ca-certificates curl -y  
+  sudo apt-get install openssh-server -y
+  sudo apt-get install wget tree -y
+  sudo apt install \
+  apparmor \
+  cifs-utils \
+  curl \
+  dbus \
+  jq \
+  libglib2.0-bin \
+  lsb-release \
+  network-manager \
+  nfs-common \
+  udisks2 \
+  wget -y
+  
+  sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+  # Add the repository to Apt sources:
+  echo "[ ] install docker "
+  echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null 
+  sudo apt update -y
+  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y 
+  sudo usermod -aG docker vagrant 
+  newgrp docker
+ 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <a rel="prev" href="../chapters/ref/pinout.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <a rel="prev" href="../chapters/ref/pinout.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../js/highlightjs-line-numbers.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $('code.hljs').each(function (i, block) {
+                    hljs.lineNumbersBlock(block);
+                });
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>
