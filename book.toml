@@ -1,0 +1,23 @@
+[book]
+authors = ["sawangpong muadphet"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Esp32 IoT Course MUICT"
+
+[preprocessor]
+
+[preprocessor.theme]
+sidebar-width = "300px"
+menu-bar-height = "40px"
+page-padding = "15px"
+
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "3.0.2" # do not edit: managed by `mdbook-admonish install`
+
+[output]
+
+[output.html]
+additional-css = ["./mdbook-admonish.css"]
+additional-js = ["js/highlightjs-line-numbers.js"]

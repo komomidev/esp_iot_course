@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'AlibabaSansThai';
+    font-style: normal;
+    font-weight: normal;
+    src: url('AlibabaSansThai-Rg.woff2')  format('woff2');
+}
+@font-face {
+    font-family: 'AlibabaSansThai';
+    font-style: normal;
+    font-weight: 500;
+    src: url('AlibabaSansThai-Md.woff2')  format('woff2');
+}
+@font-face {
+    font-family: 'AlibabaSansThai';
+    font-style: normal;
+    font-weight: 700;
+    src: url('AlibabaSansThai-Bd.woff2')  format('woff2');
+}
+
+
+body {
+    font-family: "AlibabaSansThai";
+    color: var(--fg);
+    background-color: var(--bg);
+    text-size-adjust: none;
+}
+
+/* for block of numbers */
+.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: center;
+    color: #ccc;
+    border-right: 1px solid #CCC;
+    vertical-align: top;
+    padding-right: 5px;
+
+    /* your custom style here */
+}
+
+/* for block of code */
+.hljs-ln-code {
+    padding-left: 10px;
+}
+
+.highlighted-text {
+    background-color: rgb(165, 245, 179); /* Change 'yellow' to your desired color */
+}
