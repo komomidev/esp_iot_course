@@ -91,7 +91,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapters/chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> เตรียมเครื่องคอม</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapters/ref/compare_esp1.html"><strong aria-hidden="true">1.1.</strong> ดูข้อมูลเปรียบเทียบ</a></li><li class="chapter-item expanded "><a href="chapters/ref/pinout.html"><strong aria-hidden="true">1.2.</strong> ESP32 Pinout</a></li></ol></li><li class="chapter-item expanded "><a href="chapters/iot_homelab.html"><strong aria-hidden="true">2.</strong> สร้าง IoT Home lab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapters/iot_thingsboard_lab.html"><strong aria-hidden="true">2.1.</strong> สร้าง Thinsboard Server</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Workshop</li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapters/chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> เตรียมเครื่องคอม</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapters/ref/compare_esp1.html"><strong aria-hidden="true">1.1.</strong> ดูข้อมูลเปรียบเทียบ</a></li><li class="chapter-item expanded "><a href="chapters/ref/pinout.html"><strong aria-hidden="true">1.2.</strong> ESP32 Pinout</a></li></ol></li><li class="chapter-item expanded "><a href="chapters/iot_homelab.html"><strong aria-hidden="true">2.</strong> สร้าง IoT Home lab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapters/iot_thingsboard_lab.html"><strong aria-hidden="true">2.1.</strong> สร้าง Thinsboard Server</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Workshop</li><li class="chapter-item expanded "><a href="workshops/workshop1.html"><strong aria-hidden="true">3.</strong> เตรียม Workshop</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -183,7 +183,75 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="เตรียมเครืองสำหรับพัฒนา-iot"><a class="header" href="#เตรียมเครืองสำหรับพัฒนา-iot">เตรียมเครื่องสำหรับพัฒนา IoT</a></h1>
+                        <p>การเรียนรู้ Arduino ESP32 เป็นกระบวนการที่สนุกและท้าทาย เนื่องจาก ESP32 เป็นไมโครคอนโทรลเลอร์ที่มีความสามารถมากมายและใช้งานได้กับหลายแพลตฟอร์มต่าง ๆ ไม่ว่าจะเป็นการพัฒนาโปรแกรมเพื่อ IoT (Internet of Things) หรือโปรเจกต์อิเล็กทรอนิกส์ทั่วไป</p>
+<p>ขั้นตอนพื้นฐานสำหรับการเรียนรู้ Arduino ESP32:</p>
+<ol>
+<li>
+<p><strong>เตรียมฮาร์ดแวร์</strong>:</p>
+<ul>
+<li>มีบอร์ด Arduino ESP32 เช่น NodeMCU-32S, ESP32 Dev Kit, หรือบอร์ด ESP32 อื่น ๆ ตามที่คุณมีอยู่</li>
+<li>สาย USB เพื่อเชื่อมต่อ ESP32 กับคอมพิวเตอร์</li>
+</ul>
+</li>
+<li>
+<p><strong>ติดตั้ง Arduino IDE</strong>:</p>
+<ul>
+<li>ดาวน์โหลดและติดตั้ง Arduino IDE จากเว็บไซต์ของ Arduino (https://www.arduino.cc/en/software)</li>
+<li>เปิด Arduino IDE และติดตั้งเครื่องมือสำหรับ ESP32 โดยไปที่ <strong>เมนู File &gt; Preferences</strong> และใส่ URL นี้ในช่อง Additional Board Manager URLs:
+<pre><code>https://dl.espressif.com/dl/package_esp32_index.json
+</code></pre>
+</li>
+<li>ไปที่ <strong>เมนู Tools &gt; Board &gt; Boards Manager</strong>, ค้นหา "esp32" และติดตั้ง ESP32 by Espressif Systems</li>
+</ul>
+</li>
+<li>
+<p><strong>เลือกบอร์ด ESP32</strong>:</p>
+<ul>
+<li>เมื่อติดตั้งเครื่องมือสำหรับ ESP32 เสร็จสิ้น ไปที่ <strong>เมนู Tools &gt; Board</strong> และเลือกบอร์ด ESP32 ที่คุณมี (เช่น NodeMCU-32S)</li>
+</ul>
+</li>
+<li>
+<p><strong>เรียนรู้การเขียนโค้ด</strong>:</p>
+<ul>
+<li>เรียนรู้เกี่ยวกับภาษาโปรแกรม Arduino (C/C++) และการใช้งานไลบรารีของ ESP32</li>
+<li>เริ่มต้นจากโค้ดที่ง่ายๆ เช่นการส่งข้อความไปยัง Serial Monitor หรือการเปิด-ปิด LED</li>
+</ul>
+</li>
+<li>
+<p><strong>ทดลองโปรเจกต์ต่างๆ</strong>:</p>
+<ul>
+<li>ทดลองโปรเจกต์ง่ายๆ เพื่อเรียนรู้การใช้งาน ESP32 ได้แก่:
+<ul>
+<li>การควบคุม LED ด้วยสวิตช์หรือแสดงผลตามเซ็นเซอร์</li>
+<li>การส่งข้อมูลไปยังเว็บเซิร์ฟเวอร์ผ่าน Wi-Fi</li>
+<li>การใช้งาน Bluetooth หรือการสื่อสารแบบไร้สาย</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>การเรียนรู้เพิ่มเติม</strong>:</p>
+<ul>
+<li>อ่านเอกสารและคู่มือการใช้งาน ESP32 จากเว็บไซต์ของ Espressif Systems</li>
+<li>เรียนรู้จากชุมชน Arduino ESP32 บนเว็บไซต์ต่าง ๆ เช่น GitHub, Arduino Forum, และช่อง YouTube</li>
+</ul>
+</li>
+<li>
+<p><strong>ทดลองโปรเจกต์ IoT</strong>:</p>
+<ul>
+<li>ลองสร้างโปรเจกต์ IoT ง่ายๆ เช่นระบบส่งข้อมูลเซ็นเซอร์ไปยังแพลตฟอร์ม IoT (เช่น ThingSpeak, Blynk)</li>
+</ul>
+</li>
+<li>
+<p><strong>การปรับแต่งและพัฒนา</strong>:</p>
+<ul>
+<li>ศึกษาเพิ่มเติมเกี่ยวกับการใช้งานหลายๆ ฟีเจอร์ของ ESP32 เช่นการใช้งาน GPIO, การเชื่อมต่อกับอุปกรณ์อื่น ๆ ผ่าน SPI, I2C, UART และอื่น ๆ</li>
+<li>พัฒนาโปรเจกต์ที่น่าสนใจเพื่อศึกษาและปรับปรุงทักษะการเขียนโปรแกรม</li>
+</ul>
+</li>
+</ol>
+<p>การเรียนรู้ Arduino ESP32 เป็นการเรียนรู้ที่มีประสิทธิภาพมากในการศึกษาการเขียนโปรแกรมในรูปแบบของ IoT และอิเล็กทรอนิกส์ และยังเป็นพื้นฐานที่ดีสำหรับการศึกษาเกี่ยวกับการทำงานของไมโครคอนโทรลเลอร์ในรูปแบบพื้นฐานและขั้นสูง</p>
+<h1 id="เตรียมเครืองสำหรับพัฒนา-iot"><a class="header" href="#เตรียมเครืองสำหรับพัฒนา-iot">เตรียมเครื่องสำหรับพัฒนา IoT</a></h1>
 <p>ก่อนการพัฒนา IoT จะต้องทำการติดตั้ง โปรแกรม สำหรับสร้าง Environment สำหรับการพัฒนาโปรแกรมด้าน IoT</p>
 <h2 id="1-chocolatey"><a class="header" href="#1-chocolatey">1. Chocolatey</a></h2>
 <p>Chocolatey เป็นเครื่องมือการจัดการซอฟต์แวร์ package management แบบฟรีสำหรับ Windows เราสร้างติดตั้งโปรแกรมต่างผ่านทาง Repository ของ Chocolatey  <a href="https://chocolatey.org/install">https://chocolatey.org/install</a></p>
