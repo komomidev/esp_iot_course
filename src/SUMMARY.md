@@ -5,3 +5,6 @@
     - [ESP32 Pinout](./chapters/ref/pinout.md)
 
 - [สร้าง IoT Home lab](./chapters/iot_homelab.md)
+    - [สร้าง Thinsboard Server](./chapters/iot_thingsboard_lab.md)
+
+# Workshop

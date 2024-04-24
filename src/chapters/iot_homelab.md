@@ -48,8 +48,8 @@ Vagrant คืออะไร
     - Vagrantfile  ระบุคำสั่งสำหรับการสร้าง VM (เรียกว่า Creation)
     - bootstrap.sh  ระบุคำสั่งที่ทำงานภายใน VM (เรียกการ Provision)
 
-### ตัวอย่าง  
-สร้าง VM ด้วย Debian 12 และหลังจากสร้าง VM ก็จะทำการติดตั้ง 
+### ตัวอย่าง สร้าง Debian server   
+สร้าง VM ด้วย Debian 12 และหลังจากสร้าง VM ก็จะทำการติดตั้ง docker engine
 - สร้าง Folder homelab ด้วย คำสั่ง mkdir
 ```sh
 >mkdir homelab
