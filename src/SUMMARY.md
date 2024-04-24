@@ -8,3 +8,4 @@
     - [สร้าง Thinsboard Server](./chapters/iot_thingsboard_lab.md)
 
 # Workshop
+- [เตรียม Workshop](./workshops/workshop1.md)

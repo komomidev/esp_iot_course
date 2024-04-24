@@ -51,3 +51,12 @@ body {
 .highlighted-text {
     background-color: rgb(165, 245, 179); /* Change 'yellow' to your desired color */
 }
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    background: #f6f7f6;
+    color: #000;
+    border: 2px solid #b6daf8; /* Adding a 1px solid gray border */
+    padding: 4px; /* Adding 2px padding all around */
+}
